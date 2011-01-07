@@ -21,7 +21,7 @@ public class LocationService extends Service implements Listener, LocationListen
 	private static boolean running = false;
 	private static double lat = 0;
 	private static double lon = 0;
-	private static enum GPSSTATUS {STOPPED, STARTED_NOFIX, STARTED_FIX, STARTED_LOC};
+	public static enum GPSSTATUS {STOPPED, STARTED_NOFIX, STARTED_FIX, STARTED_LOC};
 	private static GPSSTATUS gpsStatus = GPSSTATUS.STOPPED;
 
 	public void onCreate() {

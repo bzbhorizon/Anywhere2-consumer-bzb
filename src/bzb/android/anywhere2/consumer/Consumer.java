@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Consumer extends Activity {
 	
@@ -16,13 +17,20 @@ public class Consumer extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        final Button serviceButton = (Button) findViewById(R.id.serviceButton);
+        
+        if (LocationService.isRunning()) {
+        	serviceButton.setText(R.string.serviceOff);
+        } else {
+        	serviceButton.setText(R.string.serviceOn);
+        }
+        
         if (((LocationManager) getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
         	Log.i(getClass().getName(),"GPS enabled");
         	
         	final Intent locationServiceIntent = new Intent();
-		    locationServiceIntent.setAction("bzb.android.anywhere2.consumer.STARTLOCATION");
+		    locationServiceIntent.setAction(getString(R.string.locationServiceName));
 		            
-        	final Button serviceButton = (Button) findViewById(R.id.serviceButton);
         	serviceButton.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 		            if (LocationService.isRunning()) {
@@ -39,5 +47,23 @@ public class Consumer extends Activity {
         } else {
         	Log.i(getClass().getName(),"GPS not enabled - enable it in the Settings menu");
         }
+    }
+    
+    public void updateGPSStatusBlurb () {
+    	TextView gpsStatus = (TextView) findViewById(R.id.gpsStatus);
+    	switch (LocationService.getGpsStatus()) {
+    	case STOPPED:
+    		gpsStatus.setText(R.string.gpsStoppedBlurb);
+    		break;
+    	case STARTED_NOFIX:
+    		gpsStatus.setText(R.string.gpsStartedNoFixBlurb);
+    		break;
+    	case STARTED_FIX:
+    		gpsStatus.setText(R.string.gpsStartedFixBlurb);
+    		break;
+    	case STARTED_LOC:
+    		gpsStatus.setText(R.string.gpsStartedLocBlurb);
+    		break;
+    	}
     }
 }

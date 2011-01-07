@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">Anywhere2 Consumer</string>
+    <string name="appName">Anywhere2 Consumer</string>
 <string name="blurb">Anywhere 2 blah blah</string>
 <string name="serviceOn">Switch Anywhere2 on</string>
 <string name="serviceOff">Switch Anywhere2 off</string>
+<string name="locationServiceName">bzb.android.anywhere2.consumer.LocationService</string>
+<string name="gpsStoppedBlurb">GPS not currently active</string>
+<string name="gpsStartedNoFixBlurb">GPS is active but hasn\'t found your location</string>
+<string name="gpsStartedFixBlurb">GPS is active and is pinpointing your location</string>
+<string name="gpsStartedLocBlurb">GPS has pinpointed your location</string>
 </resources>
