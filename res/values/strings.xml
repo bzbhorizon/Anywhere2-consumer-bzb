@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Anywhere2 Consumer</string>
+<string name="blurb">Anywhere 2 blah blah</string>
+<string name="serviceOn">Switch Anywhere2 on</string>
+<string name="serviceOff">Switch Anywhere2 off</string>
+</resources>
