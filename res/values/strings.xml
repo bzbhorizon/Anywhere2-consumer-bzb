@@ -2,12 +2,18 @@
 <resources>
     
     <string name="appName">Anywhere2 Consumer</string>
-<string name="blurb">Anywhere 2 blah blah</string>
-<string name="serviceOn">Switch Anywhere2 on</string>
-<string name="serviceOff">Switch Anywhere2 off</string>
+<string name="blurb">Welcome to Anywhere2; use the button below to connect to the Anywhere2 service, then once your mobile has determined your current location, you will receive information about the nearest piece of content</string>
+<string name="serviceOn">Connect to Anywhere2 service</string>
+<string name="serviceOff">Disconnect from Anywhere2 service</string>
+<string name="hide">Hide this app</string>
 <string name="locationServiceName">bzb.android.anywhere2.consumer.LocationService</string>
+<string name="gpsOffBlurb">GPS turned off: please enable it in your Settings</string>
 <string name="gpsStoppedBlurb">GPS not currently active</string>
 <string name="gpsStartedNoFixBlurb">GPS is active but hasn\'t found your location</string>
 <string name="gpsStartedFixBlurb">GPS is active and is pinpointing your location</string>
 <string name="gpsStartedLocBlurb">GPS has pinpointed your location</string>
+<string name="notSearchingForContentBlurb">Not searching for content yet</string>
+<string name="nearContentBlurb">Distance from nearest content is </string>
+<string name="sameContentBlurb">You\'ve already received content from this area</string>
+<string name="downloadingContentBlurb">Downloading content</string>
 </resources>
