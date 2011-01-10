@@ -28,6 +28,7 @@ import android.location.GpsStatus.Listener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -37,9 +38,10 @@ public class LocationService extends Service implements Listener, LocationListen
 	private static boolean running = false;
 	public static enum GPSSTATUS {OFF, STOPPED, STARTED_NOFIX, STARTED_FIX, STARTED_LOC};
 	private static GPSSTATUS gpsStatus = GPSSTATUS.STOPPED;
-	public static enum CONTENTSTATUS {NO_LOCATION, NEAR, DOWNLOADING, STALE};
+	public static enum CONTENTSTATUS {NO_LOCATION, NEAR, DOWNLOADING, VIEWING, STALE};
 	private static CONTENTSTATUS contentStatus = CONTENTSTATUS.NO_LOCATION;
 	private static int distance = -1;
+	private static String contentUrl;
 
 	private static final int NOTIFICATION_ID = 1;
 	
@@ -47,11 +49,11 @@ public class LocationService extends Service implements Listener, LocationListen
 		super.onCreate();
 		
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		CharSequence tickerText = "Anywhere2 started";
+		CharSequence tickerText = "Connected to Anywhere2";
 		long when = System.currentTimeMillis();
 		Notification notification = new Notification(R.drawable.ic_stat_notify, tickerText, when);
 		Context context = getApplicationContext();
-		CharSequence contentTitle = "Anywhere2 started";
+		CharSequence contentTitle = "Connected to Anywhere2 service";
 		CharSequence contentText = "Searching for nearby content";
 		Intent notificationIntent = new Intent(this, Consumer.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -84,7 +86,7 @@ public class LocationService extends Service implements Listener, LocationListen
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			locationManager.addGpsStatusListener(this);
 			
-			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, this);
+			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 			Log.i(getClass().getName(),"Started GPS tracking");
 		} else {
 			setGpsStatus(GPSSTATUS.OFF);
@@ -126,7 +128,7 @@ public class LocationService extends Service implements Listener, LocationListen
 	
 	public void onLocationChanged(final Location location) {
 		setGpsStatus(GPSSTATUS.STARTED_LOC);
-		if (!gettingURL) {
+		if (!gettingURL && getContentStatus() != CONTENTSTATUS.VIEWING) {
 			gettingURL = true;
 			
 			Thread t = new Thread() {
@@ -150,15 +152,7 @@ public class LocationService extends Service implements Listener, LocationListen
 							setDistance(distance * 1000.0);
 							setContentStatus(CONTENTSTATUS.NEAR);
 						} catch (NumberFormatException e) {
-							String [] params = resp.split("@");
-							if(params.length > 1) {
-								setContentStatus(CONTENTSTATUS.DOWNLOADING);
-								//deal
-								//type = params[0];
-								//currentContentUrl = params[1];
-							} else {
-								System.out.println("Who knows");
-							}
+							displayContent(resp);
 						}
 						
 					} catch (UnsupportedEncodingException e) {
@@ -190,6 +184,55 @@ public class LocationService extends Service implements Listener, LocationListen
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 	
+	private ArrayList<String> previous = new ArrayList<String>();
+	
+	private void displayContent(String resp) {
+		String [] params = resp.split("@");
+		boolean stopForWeb = false;
+		if(params.length > 1) {
+			setContentStatus(CONTENTSTATUS.DOWNLOADING);
+			char type = params[0].charAt(0);
+			if (getContentUrl() == null || !previous.contains(params[1])) {
+				setContentUrl(params[1]);
+				if (previous.size() > 5) {
+					previous = new ArrayList<String>();
+				}
+				previous.add(getContentUrl());
+				Intent dialogIntent = null;
+				switch(type) {
+				case 'I':
+					dialogIntent = new Intent(getBaseContext(), ImageContentView.class);
+					break;
+				case 'V':
+					dialogIntent = new Intent(getBaseContext(), VideoContentView.class);
+					break;
+				case 'A':
+					dialogIntent = new Intent(getBaseContext(), AudioContentView.class);
+					break;
+				case 'U':
+					dialogIntent = new Intent();
+					dialogIntent.setAction("android.intent.action.VIEW");
+					dialogIntent.addCategory("android.intent.category.BROWSABLE");
+					Uri uri = Uri.parse(LocationService.getContentUrl());
+					dialogIntent.setData(uri);
+					stopForWeb = true;
+					break;
+				}
+				if (dialogIntent != null) {
+					dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					getApplication().startActivity(dialogIntent);
+					if (stopForWeb) {
+						stopSelf();
+					}
+				}
+			} else {
+				setContentStatus(CONTENTSTATUS.STALE);
+			}
+		} else {
+			System.out.println("Who knows");
+		}
+	}
+	
 	public void onDestroy() {
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotificationManager.cancel(NOTIFICATION_ID);
@@ -201,6 +244,7 @@ public class LocationService extends Service implements Listener, LocationListen
 		}
 		
 		setGpsStatus(GPSSTATUS.STOPPED);
+		setContentStatus(CONTENTSTATUS.NO_LOCATION);
 	
 		super.onDestroy();
 
@@ -211,7 +255,7 @@ public class LocationService extends Service implements Listener, LocationListen
 	
 	public IBinder onBind(Intent i) {return null;}
 
-	private void setGpsStatus(GPSSTATUS gpsStatus) {
+	private static void setGpsStatus(GPSSTATUS gpsStatus) {
 		LocationService.gpsStatus = gpsStatus;
 	}
 
@@ -243,6 +287,16 @@ public class LocationService extends Service implements Listener, LocationListen
 		return contentStatus;
 	}
 
-	
+	public static void setContentUrl(String contentUrl) {
+		LocationService.contentUrl = contentUrl;
+	}
+
+	public static String getContentUrl() {
+		return contentUrl;
+	}
+
+	public static void clearContentUrl() {
+		LocationService.contentUrl = null;
+	}
 
 }

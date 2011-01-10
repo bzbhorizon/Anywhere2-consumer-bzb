@@ -3,13 +3,27 @@
       package="bzb.android.anywhere2.consumer"
       android:versionCode="1"
       android:versionName="1.0">
-    <application android:icon="@drawable/icon" android:label="@string/appName">
+    <application android:icon="@drawable/ic_launcher" android:label="@string/appName">
         <activity android:name=".Consumer"
                   android:label="@string/appName">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ImageContentView"
+                  android:label="@string/appName"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity android:name=".VideoContentView"
+                  android:label="@string/appName">
+        </activity>
+        <activity android:name=".AudioContentView"
+                  android:label="@string/appName">
+        </activity>
+        <activity android:name=".WebContentView"
+                  android:label="@string/appName"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 		<service android:name=".LocationService">
 			<intent-filter>
@@ -23,4 +37,5 @@
 	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 	<uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES" />
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest> 

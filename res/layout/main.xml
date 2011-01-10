@@ -9,6 +9,13 @@
     android:layout_height="wrap_content" 
     android:text="@string/blurb"
     />
+<Button android:text="@string/serviceOn" android:id="@+id/serviceButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<TextView  
+	android:id="@+id/locationStatus"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/serviceOffStatus"
+    />
 <TextView  
 	android:id="@+id/gpsStatus"
     android:layout_width="fill_parent" 
@@ -21,7 +28,5 @@
     android:layout_height="wrap_content" 
     android:text="@string/notSearchingForContentBlurb"
     />
-    
-<Button android:text="@string/serviceOn" android:id="@+id/serviceButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 <Button android:text="@string/hide" android:id="@+id/hideButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 </LinearLayout>

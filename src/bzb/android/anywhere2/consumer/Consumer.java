@@ -15,24 +15,19 @@ import android.widget.TextView;
 public class Consumer extends Activity {
 	
 	private Handler mHandler = new Handler();
+	private Button serviceButton;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        final Button serviceButton = (Button) findViewById(R.id.serviceButton);
+        serviceButton = (Button) findViewById(R.id.serviceButton);
         final Button hideButton = (Button) findViewById(R.id.hideButton);
         hideButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				finish();
 			}
 		});
-        
-        if (LocationService.isRunning()) {
-        	serviceButton.setText(R.string.serviceOff);
-        } else {
-        	serviceButton.setText(R.string.serviceOn);
-        }
         
         if (((LocationManager) getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
         	Log.i(getClass().getName(),"GPS enabled");
@@ -60,25 +55,9 @@ public class Consumer extends Activity {
 				while (true) {
 					mHandler.post(new Runnable() {
 			            public void run() {
-							updateGPSStatusBlurb();
-						}
-			        });
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-        }).start();
-        
-        new Thread(new Runnable() {
-			public void run() {
-				while (true) {
-					mHandler.post(new Runnable() {
-			            public void run() {
+			            	updateGPSStatusBlurb();
 			            	updateContentStatusBlurb();
+			            	updateLocationStatusBlurb();
 			            }
 					});
 					try {
@@ -131,5 +110,16 @@ public class Consumer extends Activity {
     		break;
     	}
     }
+   
+   private void updateLocationStatusBlurb () {
+	   TextView locationStatus = (TextView) findViewById(R.id.locationStatus);
+	   if (LocationService.isRunning()) {
+       		serviceButton.setText(R.string.serviceOff);
+       		locationStatus.setText(R.string.serviceOnStatus);
+       } else {
+       		serviceButton.setText(R.string.serviceOn);
+       		locationStatus.setText(R.string.serviceOffStatus);
+       }
+   }
     
 }
