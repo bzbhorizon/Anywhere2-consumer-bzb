@@ -1,4 +1,4 @@
-package bzb.android.anywhere2.consumer;
+package com.jcolley.anywere2.android.consumer;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import bzb.android.anywhere2.consumer.LocationService.CONTENTSTATUS;
+
+import com.jcolley.anywere2.android.consumer.LocationService.CONTENTSTATUS;
 
 public class AudioContentView extends Activity {
 	

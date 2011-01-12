@@ -1,9 +1,6 @@
-package bzb.android.anywhere2.consumer;
-
-import java.net.URISyntaxException;
+package com.jcolley.anywere2.android.consumer;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +8,8 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import bzb.android.anywhere2.consumer.LocationService.CONTENTSTATUS;
+
+import com.jcolley.anywere2.android.consumer.LocationService.CONTENTSTATUS;
 
 public class WebContentView extends Activity {
 	

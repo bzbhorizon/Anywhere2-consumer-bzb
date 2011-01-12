@@ -1,4 +1,4 @@
-package bzb.android.anywhere2.consumer;
+package com.jcolley.anywere2.android.consumer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.jcolley.anywere2.android.consumer.LocationService.GPSSTATUS;
 
 public class Consumer extends Activity {
 	
@@ -48,6 +50,8 @@ public class Consumer extends Activity {
 		            }
 				}
 			});
+        } else {
+        	LocationService.setGpsStatus(GPSSTATUS.OFF);
         }
         
         new Thread(new Runnable() {
@@ -73,9 +77,11 @@ public class Consumer extends Activity {
     
     private void updateGPSStatusBlurb () {
     	TextView gpsStatus = (TextView) findViewById(R.id.gpsStatus);
+    	serviceButton.setEnabled(true);
     	switch (LocationService.getGpsStatus()) {
     	case OFF:
     		gpsStatus.setText(R.string.gpsOffBlurb);
+    		serviceButton.setEnabled(false);
     		break;
     	case STOPPED:
     		gpsStatus.setText(R.string.gpsStoppedBlurb);

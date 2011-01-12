@@ -8,8 +8,8 @@
 <string name="serviceOnStatus">Connected to Anywhere2 service</string>
 <string name="serviceOffStatus">Not connected to Anywhere2 service</string>
 <string name="hide">Hide this page</string>
-<string name="locationServiceName">bzb.android.anywhere2.consumer.LocationService</string>
-<string name="gpsOffBlurb">GPS turned off: please enable it in your Settings</string>
+<string name="locationServiceName">com.jcolley.anywere2.android.consumer.LocationService</string>
+<string name="gpsOffBlurb">GPS turned off: you must enable it in your Settings before you can connect to Anywhere2</string>
 <string name="gpsStoppedBlurb">GPS not currently active</string>
 <string name="gpsStartedNoFixBlurb">GPS is active but hasn\'t found your location</string>
 <string name="gpsStartedFixBlurb">GPS is active and is pinpointing your location</string>

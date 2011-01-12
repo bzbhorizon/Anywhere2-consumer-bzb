@@ -1,11 +1,9 @@
-package bzb.android.anywhere2.consumer;
+package com.jcolley.anywere2.android.consumer;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import bzb.android.anywhere2.consumer.LocationService.CONTENTSTATUS;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
+
+import com.jcolley.anywere2.android.consumer.LocationService.CONTENTSTATUS;
 
 public class ImageContentView extends Activity {
 	

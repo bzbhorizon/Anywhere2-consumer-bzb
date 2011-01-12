@@ -1,4 +1,4 @@
-package bzb.android.anywhere2.consumer;
+package com.jcolley.anywere2.android.consumer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -76,12 +76,6 @@ public class LocationService extends Service implements Listener, LocationListen
 	
 	private void startTracking () throws IOException {
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		List<String> providers = locationManager.getProviders(true);
-		Log.i(getClass().getName(),"Listed providers");
-		
-		for (String provider : providers) {
-			Log.i(getClass().getName(),"Enabled provider " + provider);
-		}
 		
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			locationManager.addGpsStatusListener(this);
@@ -255,7 +249,7 @@ public class LocationService extends Service implements Listener, LocationListen
 	
 	public IBinder onBind(Intent i) {return null;}
 
-	private static void setGpsStatus(GPSSTATUS gpsStatus) {
+	public static void setGpsStatus(GPSSTATUS gpsStatus) {
 		LocationService.gpsStatus = gpsStatus;
 	}
 
