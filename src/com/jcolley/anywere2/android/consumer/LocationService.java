@@ -42,6 +42,8 @@ public class LocationService extends Service implements Listener, LocationListen
 	private static CONTENTSTATUS contentStatus = CONTENTSTATUS.NO_LOCATION;
 	private static int distance = -1;
 	private static String contentUrl;
+	private static boolean shownReconnectReminder = false;
+	private static boolean shownBackTip = false;
 
 	private static final int NOTIFICATION_ID = 1;
 	
@@ -88,8 +90,16 @@ public class LocationService extends Service implements Listener, LocationListen
 		}
 	}
 	
-	private int satellitesSeen = -1;
+	private static int satellitesSeen = 0;
 	
+	public static int getSatellitesSeen() {
+		return satellitesSeen;
+	}
+
+	public static void setSatellitesSeen(int satellitesSeen) {
+		LocationService.satellitesSeen = satellitesSeen;
+	}
+
 	public void onGpsStatusChanged(int event) {
 		switch (event) {
 		case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
@@ -291,6 +301,22 @@ public class LocationService extends Service implements Listener, LocationListen
 
 	public static void clearContentUrl() {
 		LocationService.contentUrl = null;
+	}
+
+	public static void setShownReconnectReminder(boolean shownReconnectReminder) {
+		LocationService.shownReconnectReminder = shownReconnectReminder;
+	}
+
+	public static boolean haveShownReconnectReminder() {
+		return shownReconnectReminder;
+	}
+
+	public static void setShownBackTip(boolean shownBackTip) {
+		LocationService.shownBackTip = shownBackTip;
+	}
+
+	public static boolean haveShownBackTip() {
+		return shownBackTip;
 	}
 
 }

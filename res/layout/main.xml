@@ -7,26 +7,47 @@
 <TextView  
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="@string/blurb"
+    android:text="@string/logo"
+    android:gravity="center"
+    android:textSize="30sp"
+    android:textStyle="bold"
     />
-<Button android:text="@string/serviceOn" android:id="@+id/serviceButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/blurb"
+    android:gravity="center"
+    android:textSize="13sp"
+    />
+<Button android:text="@string/serviceOn" android:id="@+id/serviceButton" android:layout_height="wrap_content" android:layout_width="fill_parent"></Button>
 <TextView  
 	android:id="@+id/locationStatus"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:text="@string/serviceOffStatus"
+    android:gravity="center"
     />
 <TextView  
 	android:id="@+id/gpsStatus"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:text="@string/gpsStoppedBlurb"
+    android:gravity="center"
     />
 <TextView  
 	android:id="@+id/contentStatus"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
     android:text="@string/notSearchingForContentBlurb"
+    android:gravity="center"
     />
-<Button android:text="@string/hide" android:id="@+id/hideButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/hideBlurb"
+    android:gravity="center"
+    android:textSize="13sp"
+    />
+<Button android:text="@string/hide" android:id="@+id/hideButton" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+
 </LinearLayout>

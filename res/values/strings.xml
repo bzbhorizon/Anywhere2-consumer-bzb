@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="appName">Anywhere2 Consumer</string>
-<string name="blurb">Welcome to Anywhere2; use the button below to connect to the Anywhere2 service, then once your mobile has determined your current location, you will receive information about the nearest piece of content</string>
+<string name="appName">Anywhere2 Consumer</string>
+<string name="logo">Anywhere2</string>
+<string name="blurb">Welcome to Anywhere2. Use the button below to connect to the Anywhere2 service: once GPS has found your current location, you will receive information about the nearest piece of content.</string>
+<string name="hideBlurb">You can hide this page using the button below without losing connection to Anywhere2. You can return to this screen via the Anywhere2 icon in your main menu, or from the status bar at the top of your screen.</string>
 <string name="serviceOn">Connect to Anywhere2 service</string>
 <string name="serviceOff">Disconnect from Anywhere2 service</string>
 <string name="serviceOnStatus">Connected to Anywhere2 service</string>
@@ -11,12 +13,14 @@
 <string name="locationServiceName">com.jcolley.anywere2.android.consumer.LocationService</string>
 <string name="gpsOffBlurb">GPS turned off: you must enable it in your Settings before you can connect to Anywhere2</string>
 <string name="gpsStoppedBlurb">GPS not currently active</string>
-<string name="gpsStartedNoFixBlurb">GPS is active but hasn\'t found your location</string>
+<string name="gpsStartedNoFixBlurb">GPS hasn\'t found your location but can see</string>
 <string name="gpsStartedFixBlurb">GPS is active and is pinpointing your location</string>
 <string name="gpsStartedLocBlurb">GPS has pinpointed your location</string>
-<string name="notSearchingForContentBlurb">Not searching for content</string>
+<string name="notSearchingForContentBlurb">Unable to search for content</string>
 <string name="nearContentBlurb">Distance from nearest content is </string>
 <string name="sameContentBlurb">You\'ve already received content from this area</string>
 <string name="downloadingContentBlurb">Downloading content</string>
 <string name="back">Return to Anywhere2</string>
+<string name="restartServiceReminder">Remember to reconnect to the Anywhere2 service when you\'ve closed this web-page</string>
+<string name="backButtonTip">Press your phone\'s Back button once you\'ve finished with a piece of media</string>
 </resources>

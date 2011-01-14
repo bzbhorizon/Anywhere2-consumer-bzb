@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.jcolley.anywere2.android.consumer.LocationService.CONTENTSTATUS;
 
@@ -29,14 +30,14 @@ public class WebContentView extends Activity {
 		i.setData(uri); 
 		startActivity(i); 
 		
-		/*mHandler.post(new Runnable() {
-            public void run() {
-            	mWebView = (WebView) findViewById(R.id.webview);
-            	mWebView.setWebViewClient(new HelloWebViewClient());
-                mWebView.getSettings().setJavaScriptEnabled(true);
-                mWebView.loadUrl(LocationService.getContentUrl());
-            }
-		});*/
+		if (!LocationService.haveShownReconnectReminder()) {
+			mHandler.post(new Runnable() {
+	            public void run() {
+	            	Toast.makeText(WebContentView.this, R.string.restartServiceReminder, Toast.LENGTH_LONG);
+	            	LocationService.setShownReconnectReminder(true);
+	            }
+			});
+		}
 	}
 	
 	public void onDestroy () {
