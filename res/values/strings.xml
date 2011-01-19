@@ -20,6 +20,7 @@
 <string name="nearContentBlurb">Distance from nearest content is </string>
 <string name="sameContentBlurb">You\'ve already received content from this area</string>
 <string name="downloadingContentBlurb">Downloading content</string>
+<string name="noPluginBlurb">Content here requires a plugin that you need to install</string>
 <string name="back">Return to Anywhere2</string>
 <string name="restartServiceReminder">Remember to reconnect to the Anywhere2 service when you\'ve closed this web-page</string>
 <string name="backButtonTip">Press your phone\'s Back button once you\'ve finished with a piece of media</string>

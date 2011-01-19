@@ -21,10 +21,6 @@
         <activity android:name=".AudioContentView"
                   android:label="@string/appName">
         </activity>
-        <activity android:name=".WebContentView"
-                  android:label="@string/appName"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        </activity>
 		<service android:name=".LocationService">
 			<intent-filter>
 				<action android:name="com.jcolley.anywere2.android.consumer.LocationService" />

@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -22,6 +23,9 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.GpsSatellite;
 import android.location.GpsStatus;
 import android.location.GpsStatus.Listener;
@@ -38,7 +42,7 @@ public class LocationService extends Service implements Listener, LocationListen
 	private static boolean running = false;
 	public static enum GPSSTATUS {OFF, STOPPED, STARTED_NOFIX, STARTED_FIX, STARTED_LOC};
 	private static GPSSTATUS gpsStatus = GPSSTATUS.STOPPED;
-	public static enum CONTENTSTATUS {NO_LOCATION, NEAR, DOWNLOADING, VIEWING, STALE};
+	public static enum CONTENTSTATUS {NO_LOCATION, NEAR, DOWNLOADING, VIEWING, STALE, NO_PLUGIN};
 	private static CONTENTSTATUS contentStatus = CONTENTSTATUS.NO_LOCATION;
 	private static int distance = -1;
 	private static String contentUrl;
@@ -192,7 +196,7 @@ public class LocationService extends Service implements Listener, LocationListen
 	
 	private void displayContent(String resp) {
 		String [] params = resp.split("@");
-		boolean stopForWeb = false;
+		boolean pause = false;
 		if(params.length > 1) {
 			setContentStatus(CONTENTSTATUS.DOWNLOADING);
 			char type = params[0].charAt(0);
@@ -219,13 +223,27 @@ public class LocationService extends Service implements Listener, LocationListen
 					dialogIntent.addCategory("android.intent.category.BROWSABLE");
 					Uri uri = Uri.parse(LocationService.getContentUrl());
 					dialogIntent.setData(uri);
-					stopForWeb = true;
+					pause = true;
+					break;
+				case 'P':
+					try{
+						//System.out.println(LocationService.getContentUrl().substring(0, LocationService.getContentUrl().lastIndexOf('.')));
+						getPackageManager().getPackageInfo(LocationService.getContentUrl().substring(0, LocationService.getContentUrl().lastIndexOf('.')), 0 );
+						Intent i = new Intent();
+						i.setAction("bzb.android.anywhere2.plugin");
+						i.putExtra("id", LocationService.getContentUrl());
+						sendBroadcast(i);
+						stopSelf();
+					} catch(NameNotFoundException e ){
+						setContentStatus(CONTENTSTATUS.NO_PLUGIN);
+						previous.remove(LocationService.getContentUrl());
+					}
 					break;
 				}
 				if (dialogIntent != null) {
 					dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					getApplication().startActivity(dialogIntent);
-					if (stopForWeb) {
+					if (pause) {
 						stopSelf();
 					}
 				}

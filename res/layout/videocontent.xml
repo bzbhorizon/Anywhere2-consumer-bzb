@@ -5,5 +5,5 @@
     android:layout_height="fill_parent"
     >
 
-<Button android:text="@string/back" android:id="@+id/backbutton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:text="@string/back" android:id="@+id/backbutton" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 </LinearLayout>

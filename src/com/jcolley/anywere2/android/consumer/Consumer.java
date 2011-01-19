@@ -135,6 +135,10 @@ public class Consumer extends Activity {
     		contentStatus.setText(R.string.sameContentBlurb);
     		contentStatus.setBackgroundColor(Color.YELLOW);
     		break;
+    	case NO_PLUGIN:
+    		contentStatus.setText(R.string.noPluginBlurb);
+    		contentStatus.setBackgroundColor(Color.YELLOW);
+    		break;
     	}
     }
    
