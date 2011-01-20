@@ -1,53 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/logo"
-    android:gravity="center"
-    android:textSize="30sp"
-    android:textStyle="bold"
-    />
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/blurb"
-    android:gravity="center"
-    android:textSize="13sp"
-    />
-<Button android:text="@string/serviceOn" android:id="@+id/serviceButton" android:layout_height="wrap_content" android:layout_width="fill_parent"></Button>
-<TextView  
-	android:id="@+id/locationStatus"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/serviceOffStatus"
-    android:gravity="center"
-    />
-<TextView  
-	android:id="@+id/gpsStatus"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/gpsStoppedBlurb"
-    android:gravity="center"
-    />
-<TextView  
-	android:id="@+id/contentStatus"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/notSearchingForContentBlurb"
-    android:gravity="center"
-    />
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hideBlurb"
-    android:gravity="center"
-    android:textSize="13sp"
-    />
-<Button android:text="@string/hide" android:id="@+id/hideButton" android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/logo"
+		android:gravity="center" android:textSize="30sp" android:textStyle="bold" />
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/blurb"
+		android:gravity="center" android:textSize="13sp" />
+	<Button android:text="@string/serviceOn" android:id="@+id/serviceButton"
+		android:layout_height="wrap_content" android:layout_width="fill_parent"></Button>
+	<TextView android:id="@+id/locationStatus"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="@string/serviceOffStatus" android:gravity="center" android:textColor="@android:color/black" />
+	<TextView android:id="@+id/gpsStatus" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="@string/gpsStoppedBlurb"
+		android:gravity="center" android:textColor="@android:color/black" />
+	<TextView android:id="@+id/contentStatus"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="@string/notSearchingForContentBlurb" android:gravity="center" android:textColor="@android:color/black" />
+
+	<Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/filterButton" android:text="@string/filter"></Button>
+	<Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/hideButton" android:text="@string/hide"></Button>
+	
 
 </LinearLayout>

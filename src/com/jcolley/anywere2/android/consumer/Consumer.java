@@ -19,12 +19,14 @@ public class Consumer extends Activity {
 	
 	private Handler mHandler = new Handler();
 	private Button serviceButton;
+	private boolean choosingFilter = false;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
         serviceButton = (Button) findViewById(R.id.serviceButton);
+  
         final Button hideButton = (Button) findViewById(R.id.hideButton);
         hideButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -33,13 +35,10 @@ public class Consumer extends Activity {
 		});
         
         TextView gpsStatus = (TextView) findViewById(R.id.gpsStatus);
-    	gpsStatus.setTextColor(Color.BLACK);
     	gpsStatus.setPadding(2, 2, 2, 2);
     	TextView contentStatus = (TextView) findViewById(R.id.contentStatus);
-    	contentStatus.setTextColor(Color.BLACK);
     	contentStatus.setPadding(2, 2, 2, 2);
     	TextView locationStatus = (TextView) findViewById(R.id.locationStatus);
- 	   	locationStatus.setTextColor(Color.BLACK);
  	   	locationStatus.setPadding(2, 2, 2, 2);
         
         if (((LocationManager) getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -61,6 +60,32 @@ public class Consumer extends Activity {
 		            }
 				}
 			});
+        	
+        	Button filter = (Button) findViewById(R.id.filterButton);
+        	filter.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					choosingFilter = true;
+					stopService(locationServiceIntent);
+					
+					setContentView(R.layout.filter);
+					
+					Button confirm = (Button) findViewById(R.id.confirmButton);
+					confirm.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							setContentView(R.layout.main);
+							choosingFilter = false;
+						}
+					});
+					
+					Button cancel = (Button) findViewById(R.id.cancelButton);
+					cancel.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							setContentView(R.layout.main);
+							choosingFilter = false;
+						}
+					});
+				}
+			});
         } else {
         	LocationService.setGpsStatus(GPSSTATUS.OFF);
         }
@@ -68,13 +93,15 @@ public class Consumer extends Activity {
         new Thread(new Runnable() {
 			public void run() {
 				while (true) {
-					mHandler.post(new Runnable() {
-			            public void run() {
-			            	updateGPSStatusBlurb();
-			            	updateContentStatusBlurb();
-			            	updateLocationStatusBlurb();
-			            }
-					});
+					if (!choosingFilter) {
+						mHandler.post(new Runnable() {
+				            public void run() {
+				            	updateGPSStatusBlurb();
+				            	updateContentStatusBlurb();
+				            	updateLocationStatusBlurb();
+				            }
+						});
+					}
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {

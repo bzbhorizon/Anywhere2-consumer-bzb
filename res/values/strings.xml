@@ -4,12 +4,15 @@
 <string name="appName">Anywhere2 Consumer</string>
 <string name="logo">Anywhere2</string>
 <string name="blurb">Welcome to Anywhere2. Use the button below to connect to the Anywhere2 service: once GPS has found your current location, you will receive information about the nearest piece of content.</string>
-<string name="hideBlurb">You can hide this page using the button below without losing connection to Anywhere2. You can return to this screen via the Anywhere2 icon in your main menu, or from the status bar at the top of your screen.</string>
+<string name="hide">Run Anywhere2 in the background</string>
+<string name="cancel">Cancel</string>
+<string name="confirm">Confirm</string>
+<string name="filter">Specify a collection</string>
+<string name="filterBlurb">Type a username into the box below to receive only content created by that user.</string>
 <string name="serviceOn">Connect to Anywhere2 service</string>
 <string name="serviceOff">Disconnect from Anywhere2 service</string>
 <string name="serviceOnStatus">Connected to Anywhere2 service</string>
 <string name="serviceOffStatus">Not connected to Anywhere2 service</string>
-<string name="hide">Hide this page</string>
 <string name="locationServiceName">com.jcolley.anywere2.android.consumer.LocationService</string>
 <string name="gpsOffBlurb">GPS turned off: you must enable it in your Settings before you can connect to Anywhere2</string>
 <string name="gpsStoppedBlurb">GPS not currently active</string>

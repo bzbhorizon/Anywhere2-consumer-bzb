@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/logo"
+    android:gravity="center"
+    android:textSize="30sp"
+    android:textStyle="bold"
+    />
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/filterBlurb"
+    android:gravity="center"
+    android:textSize="13sp"
+    />
+
+<EditText android:id="@+id/userField" android:layout_width="fill_parent" android:layout_height="wrap_content"></EditText>
+
+<LinearLayout android:id="@+id/filterButtonLayout"
+    android:orientation="horizontal"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content">
+<Button android:text="@string/confirm" android:id="@+id/confirmButton" android:layout_height="wrap_content" android:layout_width="wrap_content"></Button>
+<Button android:text="@string/cancel" android:id="@+id/cancelButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+</LinearLayout>
+
+
+</LinearLayout>
