@@ -3,6 +3,7 @@ package com.jcolley.anywere2.android.consumer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -24,6 +25,7 @@ public class AudioContentView extends Activity {
 	
 	private Handler mHandler = new Handler();
 	private ProgressDialog dialog;
+	private Uri uri;
 
 	public void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -36,17 +38,18 @@ public class AudioContentView extends Activity {
 			}
 		});
 		
-		dialog = ProgressDialog.show(this, "", 
-                "Downloading audio. Please wait...", true);
-		
 		LocationService.setContentStatus(CONTENTSTATUS.VIEWING);
 		
 		mHandler.post(new Runnable() {
             public void run() {
+            	uri = null;
             	try {
+            		dialog = ProgressDialog.show(AudioContentView.this, "", 
+                            "Downloading audio. Please wait...", true);
+            		
         			URLConnection cn = new URL(LocationService.getContentUrl()).openConnection();
         			InputStream is = cn.getInputStream();
-        			File videoMediaFile = new File(Environment.getExternalStorageDirectory().toString(),"mediafile.mp3");
+        			File videoMediaFile = new File(Environment.getExternalStorageDirectory().toString(),"mediafile");
         			FileOutputStream fos = new FileOutputStream(videoMediaFile);   
         			byte buf[] = new byte[16 * 1024];
         			do {
@@ -61,12 +64,11 @@ public class AudioContentView extends Activity {
         			
         			dialog.dismiss();
         			
-        			Uri uri = Uri.parse("file://" + videoMediaFile.getPath());
+        			uri = Uri.parse("file://" + videoMediaFile.getPath());
         			Intent intent = new Intent(Intent.ACTION_VIEW);
         			String type = "audio/mp3";
         			intent.setDataAndType(uri, type);
         			startActivity(intent); 
-        			
         		} catch(Exception e){
         			Log.e("DownloadAudio", e.getMessage());
         			//LocationService.clearContentUrl();
@@ -81,7 +83,10 @@ public class AudioContentView extends Activity {
 	public void onDestroy () {
 		super.onDestroy();
 		LocationService.setContentStatus(CONTENTSTATUS.NO_LOCATION);
-		
+		if (uri != null) {
+			new File(uri.getPath()).delete();
+			uri = null;
+		}
 	}
 
 }

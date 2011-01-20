@@ -117,28 +117,33 @@ public class Consumer extends Activity {
     
    private void updateContentStatusBlurb () {
     	TextView contentStatus = (TextView) findViewById(R.id.contentStatus);
-    	switch (LocationService.getContentStatus()) {
-    	case NO_LOCATION:
+    	if (LocationService.isRunning()) {
+	    	switch (LocationService.getContentStatus()) {
+	    	case NO_LOCATION:
+	    		contentStatus.setText(R.string.notSearchingForContentBlurb);
+	    		contentStatus.setBackgroundColor(Color.RED);
+	    		break;
+	    	case NEAR:
+	    		String text = getString(R.string.nearContentBlurb) + " " + LocationService.getDistance() + " metres";
+	    		contentStatus.setText(text);
+	    		contentStatus.setBackgroundColor(Color.GREEN);
+	    		break;
+	    	case DOWNLOADING:
+	    		contentStatus.setText(R.string.downloadingContentBlurb);
+	    		contentStatus.setBackgroundColor(Color.GREEN);
+	    		break;
+	    	case STALE:
+	    		contentStatus.setText(R.string.sameContentBlurb);
+	    		contentStatus.setBackgroundColor(Color.YELLOW);
+	    		break;
+	    	case NO_PLUGIN:
+	    		contentStatus.setText(R.string.noPluginBlurb);
+	    		contentStatus.setBackgroundColor(Color.YELLOW);
+	    		break;
+	    	}
+    	} else {
     		contentStatus.setText(R.string.notSearchingForContentBlurb);
     		contentStatus.setBackgroundColor(Color.RED);
-    		break;
-    	case NEAR:
-    		String text = getString(R.string.nearContentBlurb) + " " + LocationService.getDistance() + " metres";
-    		contentStatus.setText(text);
-    		contentStatus.setBackgroundColor(Color.GREEN);
-    		break;
-    	case DOWNLOADING:
-    		contentStatus.setText(R.string.downloadingContentBlurb);
-    		contentStatus.setBackgroundColor(Color.GREEN);
-    		break;
-    	case STALE:
-    		contentStatus.setText(R.string.sameContentBlurb);
-    		contentStatus.setBackgroundColor(Color.YELLOW);
-    		break;
-    	case NO_PLUGIN:
-    		contentStatus.setText(R.string.noPluginBlurb);
-    		contentStatus.setBackgroundColor(Color.YELLOW);
-    		break;
     	}
     }
    
